@@ -382,8 +382,11 @@ namespace UltimateXR.Devices.Integrations
         /// <param name="inputDevice">The device that was connected</param>
         private void InputDevices_DeviceConnected(InputDevice inputDevice)
         {
+            // Check if OpenXR is used
+            bool isOpenXr = UxrTrackingDevice.HeadsetDeviceName is "Head Tracking - OpenXR";
+            
             // Check if device is compatible with component
-            if (ForceUseAlways || ControllerNames.Any(n => string.Equals(n, inputDevice.name)))
+            if (ForceUseAlways || isOpenXr || ControllerNames.Any(n => string.Equals(n, inputDevice.name)))
             {
                 // Found compatible device. Look for features.
                 List<InputFeatureUsage> listFeatures = new List<InputFeatureUsage>();
